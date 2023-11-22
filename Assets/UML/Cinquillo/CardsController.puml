@@ -1,0 +1,14 @@
+@startuml
+class CardsController {
+    cardPrefab : GameObject
+    deckNames : List<string>
+    cardNumbers : int[]
+    cards : List<Sprite>
+    +  <<event>> OnGameOver : Action 
+    cardsToPlay : List<CardController>
+    cardsInTable : List<CardController>
+    + CanPlay(cardController:CardController) : bool
+    + Play(cardController:CardController) : void
+}
+MonoBehaviour <|-- CardsController
+@enduml

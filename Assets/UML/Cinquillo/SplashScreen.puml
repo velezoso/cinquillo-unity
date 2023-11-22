@@ -1,0 +1,7 @@
+@startuml
+class SplashScreen {
+    deltaFadeTime : float = 0.1f
+    Start() : void
+}
+MonoBehaviour <|-- SplashScreen
+@enduml

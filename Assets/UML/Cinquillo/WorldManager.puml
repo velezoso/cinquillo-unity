@@ -1,0 +1,21 @@
+@startuml
+class WorldManager {
+    cardsController : CardsController
+    players : AbstractPlayer[]
+    playerTransforms : Transform[]
+    heartsTransform : Transform
+    spadesTransform : Transform
+    diamondsTransform : Transform
+    cloversTransform : Transform
+    playerTurnIndex : int
+    gameOver : bool
+    Awake() : void
+    Start() : void
+    RandomStartGame() : void
+    + Next() : void
+    + CanPlay(cardController:CardController) : bool
+    + Play(cardController:CardController) : void
+    TimeToNext() : IEnumerator
+}
+MonoBehaviour <|-- WorldManager
+@enduml

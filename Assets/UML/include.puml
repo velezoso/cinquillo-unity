@@ -1,0 +1,84 @@
+@startuml
+abstract class AbstractPlayer {
+    + <<virtual>> Add(cardController:CardController) : void
+    + {abstract} Turn(worldManager:WorldManager) : void
+    + Play(cardSelected:CardController) : void
+    + Pass() : void
+}
+MonoBehaviour <|-- AbstractPlayer
+class AIPlayer {
+    + <<override>> Add(cardController:CardController) : void
+    + <<override>> Turn(worldManager:WorldManager) : void
+}
+AbstractPlayer <|-- AIPlayer
+class CardController {
+    + numberCard : int <<get>>
+    + deckName : string <<get>>
+    + card : GameObject <<get>>
+    + initialPosition : Vector2 <<get>> <<set>>
+    + CardController(cardNumber:int, deckName:string, sprite:Sprite, cardPrefab:GameObject)
+    + IsNext(cardController:CardController) : bool
+    + IsPrevious(cardController:CardController) : bool
+    + IsFive(cardController:CardController) : bool
+    + <<override>> ToString() : string
+}
+class CardsController {
+    cardPrefab : GameObject
+    deckNames : List<string>
+    cardNumbers : int[]
+    cards : List<Sprite>
+    +  <<event>> OnGameOver : Action 
+    cardsToPlay : List<CardController>
+    cardsInTable : List<CardController>
+    + CanPlay(cardController:CardController) : bool
+    + Play(cardController:CardController) : void
+}
+MonoBehaviour <|-- CardsController
+class CinquilloController {
+}
+MonoBehaviour <|-- CinquilloController
+class HumanPlayer {
+    + <<override>> Add(cardController:CardController) : void
+    + <<override>> Turn(worldManager:WorldManager) : void
+    + CanPlay(cardSelected:CardController) : bool
+}
+AbstractPlayer <|-- HumanPlayer
+class MouseController {
+    humanPlayer : HumanPlayer
+    cardController : CardController
+    <<new>> camera : Camera
+    <<new>> collider2D : Collider2D
+    canBePlayed : bool
+}
+MonoBehaviour <|-- MouseController
+class SplashScreen {
+    deltaFadeTime : float = 0.1f
+    Start() : void
+}
+MonoBehaviour <|-- SplashScreen
+class TableController {
+}
+MonoBehaviour <|-- TableController
+class UIManager {
+}
+MonoBehaviour <|-- UIManager
+class WorldManager {
+    cardsController : CardsController
+    players : AbstractPlayer[]
+    playerTransforms : Transform[]
+    heartsTransform : Transform
+    spadesTransform : Transform
+    diamondsTransform : Transform
+    cloversTransform : Transform
+    playerTurnIndex : int
+    gameOver : bool
+    Awake() : void
+    Start() : void
+    RandomStartGame() : void
+    + Next() : void
+    + CanPlay(cardController:CardController) : bool
+    + Play(cardController:CardController) : void
+    TimeToNext() : IEnumerator
+}
+MonoBehaviour <|-- WorldManager
+@enduml

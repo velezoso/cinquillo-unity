@@ -1,0 +1,9 @@
+@startuml
+abstract class AbstractPlayer {
+    + <<virtual>> Add(cardController:CardController) : void
+    + {abstract} Turn(worldManager:WorldManager) : void
+    + Play(cardSelected:CardController) : void
+    + Pass() : void
+}
+MonoBehaviour <|-- AbstractPlayer
+@enduml

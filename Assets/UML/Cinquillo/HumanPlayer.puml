@@ -1,0 +1,8 @@
+@startuml
+class HumanPlayer {
+    + <<override>> Add(cardController:CardController) : void
+    + <<override>> Turn(worldManager:WorldManager) : void
+    + CanPlay(cardSelected:CardController) : bool
+}
+AbstractPlayer <|-- HumanPlayer
+@enduml

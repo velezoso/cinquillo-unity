@@ -1,0 +1,13 @@
+@startuml
+class CardController {
+    + numberCard : int <<get>>
+    + deckName : string <<get>>
+    + card : GameObject <<get>>
+    + initialPosition : Vector2 <<get>> <<set>>
+    + CardController(cardNumber:int, deckName:string, sprite:Sprite, cardPrefab:GameObject)
+    + IsNext(cardController:CardController) : bool
+    + IsPrevious(cardController:CardController) : bool
+    + IsFive(cardController:CardController) : bool
+    + <<override>> ToString() : string
+}
+@enduml

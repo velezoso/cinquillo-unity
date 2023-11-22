@@ -1,0 +1,7 @@
+@startuml
+class AIPlayer {
+    + <<override>> Add(cardController:CardController) : void
+    + <<override>> Turn(worldManager:WorldManager) : void
+}
+AbstractPlayer <|-- AIPlayer
+@enduml

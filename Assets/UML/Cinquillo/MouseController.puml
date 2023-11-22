@@ -1,0 +1,10 @@
+@startuml
+class MouseController {
+    humanPlayer : HumanPlayer
+    cardController : CardController
+    <<new>> camera : Camera
+    <<new>> collider2D : Collider2D
+    canBePlayed : bool
+}
+MonoBehaviour <|-- MouseController
+@enduml
