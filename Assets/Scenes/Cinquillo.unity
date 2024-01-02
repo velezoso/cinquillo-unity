@@ -255,7 +255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.5, y: -0.5}
+  m_AnchoredPosition: {x: -7.5000076, y: -0.5}
   m_SizeDelta: {x: -35, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &264657490
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.1
+  m_fontSize: 8.95
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -412,8 +412,8 @@ MonoBehaviour:
   spadesTransform: {fileID: 2036398342}
   diamondsTransform: {fileID: 960215549}
   cloversTransform: {fileID: 430112620}
-  movementAnimationTime: 1
-  showTextDelay: 1
+  movementAnimationTime: 0.5
+  showTextDelay: 0.5
   humanPlayer1: {fileID: 814216147}
   humanPlayer2: {fileID: 820024227}
   aiPlayer1: {fileID: 534261382}
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.6
+  m_fontSize: 13.45
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1496,7 +1496,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.95
+  m_fontSize: 25.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1736,7 +1736,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.6
+  m_fontSize: 13.45
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1870,7 +1870,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.2
+  m_fontSize: 47.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3681,8 +3681,8 @@ MonoBehaviour:
   spadesTransform: {fileID: 735665928}
   diamondsTransform: {fileID: 1831973644}
   cloversTransform: {fileID: 796408100}
-  movementAnimationTime: 1
-  showTextDelay: 1
+  movementAnimationTime: 0.5
+  displayTextDelay: 0.5
   humanPlayer1: {fileID: 1688572531}
   humanPlayer2: {fileID: 1745409587}
   aiPlayer1: {fileID: 711793861}
