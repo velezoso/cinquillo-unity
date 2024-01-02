@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,15 +14,19 @@ namespace Scripts.Cinquillo
     {
         [SerializeField] private TMP_Text mainText;
         [SerializeField] GameObject menuGO;
-        [SerializeField] WorldManager worldManager;
+        IWorldManager worldManager;
         int numberOfPlayers;
 
         void Awake()
         {
             Assert.IsNotNull(mainText, "ERROR olvidaste texto");
-            Assert.IsNotNull(worldManager, "ERROR olvidaste worldManager");
             Assert.IsNotNull(menuGO, "ERROR olvidaste menú");
             mainText.gameObject.SetActive(false);
+        }
+
+        internal void Setup(IWorldManager worldManager)
+        {
+            this.worldManager = worldManager;
         }
 
         public void Play()
@@ -41,12 +46,13 @@ namespace Scripts.Cinquillo
 
         internal void GameFinished(string text, float duration)
         {
-            ShowText(text, duration);
+            DisplayText(text, duration);
             menuGO.SetActive(true);
         }
 
-        internal void ShowText(string text, float duration)
+        internal void DisplayText(string text, float duration)
         {
+            // Debug.Log($"{text} - {duration}");
             StartCoroutine(ShowTextCoroutine(text, duration));
         }
 
@@ -56,6 +62,7 @@ namespace Scripts.Cinquillo
             mainText.text = text;
             yield return new WaitForSeconds(duration);
             mainText.gameObject.SetActive(false);
+            worldManager.TextDisplayed();
         }
 
         public void OnValueChanged(int value)

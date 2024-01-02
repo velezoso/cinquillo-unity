@@ -9,7 +9,7 @@ namespace Scripts.Cinquillo
     {
         [SerializeField] protected List<CardController> cardsToPlay = new List<CardController>();
 
-        protected WorldManager worldManager;
+        protected IWorldManager worldManager;
 
         public virtual void Add(CardController cardController)
         {
@@ -57,7 +57,7 @@ namespace Scripts.Cinquillo
             }
         }
 
-        internal void Setup(WorldManager worldManager)
+        internal void Setup(IWorldManager worldManager)
         {
             this.worldManager = worldManager;
         }

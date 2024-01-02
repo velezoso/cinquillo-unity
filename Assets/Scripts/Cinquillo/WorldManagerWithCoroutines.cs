@@ -5,7 +5,7 @@ using System.Collections;
 
 namespace Scripts.Cinquillo
 {
-    public class WorldManager : MonoBehaviour
+    public class WorldManagerWithCoroutines : MonoBehaviour, IWorldManager
     {
         [SerializeField] UIManager uIManager;
         [SerializeField] CardsController cardsController;
@@ -15,7 +15,7 @@ namespace Scripts.Cinquillo
         [SerializeField] Transform diamondsTransform;
         [SerializeField] Transform cloversTransform;
         [SerializeField, Range(0.5f, 2f)] float movementAnimationTime = 2f;
-        [SerializeField, Range(0.5f, 2f)] float showTextTime = 1f;
+        [SerializeField, Range(0.5f, 2f)] float showTextDelay = 1f;
         [SerializeField] AbstractPlayer humanPlayer1;
         [SerializeField] AbstractPlayer humanPlayer2;
         [SerializeField] AbstractPlayer aiPlayer1;
@@ -31,6 +31,8 @@ namespace Scripts.Cinquillo
             Assert.IsNotNull(humanPlayer1, "ERROR olvidaste prefab human");
             Assert.IsNotNull(aiPlayer2, "ERROR olvidaste prefab ai");
             Assert.IsTrue(playerTransforms.Length > 0, "ERROR olvidaste Posiciones Jugadores");
+
+            uIManager.Setup(this);
         }
 
         public void Play(int numberOfPlayers)
@@ -47,7 +49,7 @@ namespace Scripts.Cinquillo
             }
 
             ChooseRandomTurn();
-            PlayTurn();
+            ChangeTurn();
         }
 
         void SetupPlayers(int numberOfPlayers)
@@ -71,12 +73,12 @@ namespace Scripts.Cinquillo
 
         void ChooseRandomTurn()
         {
-            // Debug.Log($"-----------------INICIO------------------");s
+            // Debug.Log($"-----------------INICIO------------------");
             playerTurnIndex = Random.Range(0, players.Length);
         }
 
 
-        public void PlayTurn()
+        public void ChangeTurn()
         {
             if (!isGameFinished)
             {
@@ -86,8 +88,8 @@ namespace Scripts.Cinquillo
 
         IEnumerator PlayTurnCoroutine()
         {
-            uIManager.ShowText($"Turno\n{players[playerTurnIndex].name}", showTextTime);
-            yield return new WaitForSeconds(showTextTime);
+            uIManager.DisplayText($"Turno\n{players[playerTurnIndex].name}", showTextDelay);
+            yield return new WaitForSeconds(showTextDelay);
             players[playerTurnIndex].PlayTurn();
             playerTurnIndex++;
             if (playerTurnIndex == players.Length)
@@ -96,7 +98,7 @@ namespace Scripts.Cinquillo
             }
         }
 
-        internal void GameFinished(string playerName)
+        public void GameFinished(string playerName)
         {
             // Debug.Log($"-----------------FIN------------------");
             isGameFinished = true;
@@ -105,7 +107,7 @@ namespace Scripts.Cinquillo
                 player.FinishGame();
             }
 
-            uIManager.GameFinished($"Gana\n{playerName}", showTextTime);
+            uIManager.GameFinished($"Gana\n{playerName}", showTextDelay);
         }
 
         public bool CanPlay(CardController cardController)
@@ -113,18 +115,18 @@ namespace Scripts.Cinquillo
             return cardsController.CanPlay(cardController);
         }
 
-        internal void Play(string name, CardController cardController)
+        public void Play(string playerName, CardController cardController)
         {
-            StartCoroutine(PlayCoroutine(name, cardController));
+            StartCoroutine(PlayCoroutine(playerName, cardController));
         }
 
-        IEnumerator PlayCoroutine(string name, CardController cardController)
+        IEnumerator PlayCoroutine(string playerName, CardController cardController)
         {
-            uIManager.ShowText($"{name} juega {cardController}", showTextTime);
+            uIManager.DisplayText($"{playerName} juega {cardController}", showTextDelay);
             MoveCardToTablePosition(cardController);
             cardsController.UpdateCardsInTable(cardController);
-            yield return new WaitForSeconds(showTextTime);
-            StartCoroutine(NextTurnCoroutine());
+            yield return new WaitForSeconds(showTextDelay);
+            ChangeTurn();
         }
 
         void MoveCardToTablePosition(CardController cardController)
@@ -154,22 +156,18 @@ namespace Scripts.Cinquillo
             card.transform.DOMove(parent.transform.position + diff * 0.4f * Vector3.up, movementAnimationTime).SetEase(Ease.OutBack);
         }
 
-        internal void Pass(string name)
+        public void Pass(string playerName)
         {
-            StartCoroutine(PassCoroutine(name));
+            StartCoroutine(PassCoroutine(playerName));
         }
 
-        IEnumerator PassCoroutine(string name)
+        IEnumerator PassCoroutine(string playerName)
         {
-            uIManager.ShowText($"Pasa\n{name}", showTextTime);
-            yield return new WaitForSeconds(showTextTime);
-            StartCoroutine(NextTurnCoroutine());
+            uIManager.DisplayText($"Pasa\n{playerName}", showTextDelay);
+            yield return new WaitForSeconds(showTextDelay);
+            ChangeTurn();
         }
 
-        IEnumerator NextTurnCoroutine()
-        {
-            yield return new WaitForSeconds(showTextTime);
-            PlayTurn();
-        }
+        public void TextDisplayed() { }
     }
 }
